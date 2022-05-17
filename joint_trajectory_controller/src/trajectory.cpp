@@ -272,6 +272,41 @@ void Trajectory::interpolate_between_points(
   }
 }
 
+void Trajectory::deduce_from_derivatives(
+  trajectory_msgs::msg::JointTrajectoryPoint & first_state,
+  trajectory_msgs::msg::JointTrajectoryPoint & second_state, const size_t dim, const double delta_t)
+{
+  if (second_state.positions.empty())
+  {
+    second_state.positions.resize(dim);
+    if (first_state.velocities.empty())
+    {
+      first_state.velocities.resize(dim, 0.0);
+    }
+    if (second_state.velocities.empty())
+    {
+      second_state.velocities.resize(dim);
+      if (first_state.accelerations.empty())
+      {
+        first_state.accelerations.resize(dim, 0.0);
+      }
+      for (size_t i = 0; i < dim; ++i)
+      {
+        second_state.velocities[i] =
+          first_state.velocities[i] +
+          (first_state.accelerations[i] + second_state.accelerations[i]) * 0.5 * delta_t;
+      }
+    }
+    for (size_t i = 0; i < dim; ++i)
+    {
+      // second state velocity should be reached on the end of the segment, so use middle
+      second_state.positions[i] =
+        first_state.positions[i] +
+        (first_state.velocities[i] + second_state.velocities[i]) * 0.5 * delta_t;
+    }
+  }
+}
+
 TrajectoryPointConstIter Trajectory::begin() const
 {
   THROW_ON_NULLPTR(trajectory_msg_)

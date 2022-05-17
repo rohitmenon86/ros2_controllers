@@ -1,6 +1,10 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package joint_trajectory_controller
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1.4.1 (2022-05-17)
+-------------------
+Port JTC effort from 2.5 to 1.4 for galactic
+Contributors: Rohit Menon
 
 1.4.0 (2022-02-23)
 ------------------

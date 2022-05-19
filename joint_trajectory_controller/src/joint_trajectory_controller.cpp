@@ -166,7 +166,7 @@ controller_interface::return_type JointTrajectoryController::update(
   if (traj_point_active_ptr_ && (*traj_point_active_ptr_)->has_trajectory_msg())
   {
     // if sampling the first time, set the point before you sample
-    RCLCPP_INFO(node_->get_logger(), "traj_point_active_ptr_ ");
+    //RCLCPP_INFO(node_->get_logger(), "traj_point_active_ptr_ ");
     if (!(*traj_point_active_ptr_)->is_sampled_already())
     {
       if (open_loop_control_)
@@ -237,7 +237,7 @@ controller_interface::return_type JointTrajectoryController::update(
       {
         if (use_closed_loop_pid_adapter)
         {
-          RCLCPP_INFO(node_->get_logger(), "Computing PIDS");
+          //RCLCPP_INFO(node_->get_logger(), "Computing PIDS");
           // Update PIDs
           for (auto i = 0ul; i < joint_num; ++i)
           {

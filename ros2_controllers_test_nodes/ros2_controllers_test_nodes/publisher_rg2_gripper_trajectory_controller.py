@@ -25,12 +25,12 @@ from sensor_msgs.msg import JointState
 
 class PublisherJointTrajectory(Node):
     def __init__(self):
-        super().__init__("publisher_position_trajectory_controller")
+        super().__init__("publisher_rg2_gripper_trajectory_controller")
         # Declare all parameters
-        self.declare_parameter("controller_name", "joint_trajectory_controller")
+        self.declare_parameter("controller_name", "rg2_gripper_trajectory_controller")
         self.declare_parameter("wait_sec_between_publish", 6)
         self.declare_parameter("goal_names", ["pos1", "pos2"])
-        self.declare_parameter("joints", ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"])
+        self.declare_parameter("joints", ["rg2_finger_joint1", "rg2_finger_joint2"])
         self.declare_parameter("check_starting_point", False)
         self.declare_parameter("starting_point_limits")
 
@@ -38,7 +38,7 @@ class PublisherJointTrajectory(Node):
         controller_name = self.get_parameter("controller_name").value
         wait_sec_between_publish = self.get_parameter("wait_sec_between_publish").value
         goal_names = ["pos1"] #self.get_parameter("goal_names").value
-        self.joints = ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"] #self.get_parameter("joints").value
+        self.joints =  ["rg2_finger_joint1", "rg2_finger_joint2"] #self.get_parameter("joints").value
         self.check_starting_point = self.get_parameter("check_starting_point").value
         self.starting_point = {}
 
@@ -68,7 +68,7 @@ class PublisherJointTrajectory(Node):
         self.goals = []
         for name in goal_names:
             self.declare_parameter(name)
-            goal = [1.0, -1.57, 0.0, 0.0, 1.0, 0.2]#self.get_parameter(name).value
+            goal = [1.1, 1.1]#self.get_parameter(name).value
             if goal is None or len(goal) == 0:
                 raise Exception(f'Values for goal "{name}" not set!')
 

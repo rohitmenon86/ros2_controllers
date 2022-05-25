@@ -29,7 +29,7 @@ class PublisherJointTrajectory(Node):
         # Declare all parameters
         self.declare_parameter("controller_name_arm", "joint_trajectory_controller")
         self.declare_parameter("controller_name_gripper", "rg2_gripper_trajectory_controller")
-        self.declare_parameter("wait_sec_between_publish", 10)
+        self.declare_parameter("wait_sec_between_publish", 0.1)
         self.declare_parameter("goal_names_arm", ["start_pos_arm"])
         self.declare_parameter("goal_names_gripper", ["start_pos_gripper"])
         self.declare_parameter("joints_arm", ["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"])
@@ -64,7 +64,7 @@ class PublisherJointTrajectory(Node):
         self.goals_arm = []
         for name in goal_names_arm:
             self.declare_parameter(name)
-            goal_arm = [0, -1.57, 0.0, 0.0, 1.57, 0.0]#self.get_parameter(name).value
+            goal_arm = [1.59, -1.47, 1.67, -1.78, -1.58, 0.0]#self.get_parameter(name).value
             if goal_arm is None or len(goal_arm) == 0:
                 raise Exception(f'Values for goal "{name}" not set!')
 
